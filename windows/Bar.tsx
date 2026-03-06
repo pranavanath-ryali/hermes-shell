@@ -2,7 +2,6 @@ import app from "ags/gtk4/app"
 import { Astal } from "ags/gtk4"
 import Gdk from "gi://Gdk?version=4.0"
 import Gtk from "gi://Gtk?version=4.0"
-import GLib from "gi://GLib?version=2.0";
 import AstalHyprland from "gi://AstalHyprland?version=0.1"
 import { createBinding, createState } from "gnim"
 import { createPoll } from "ags/time"
