@@ -2,24 +2,26 @@ import app from "ags/gtk4/app"
 import { Astal } from "ags/gtk4"
 import Gdk from "gi://Gdk?version=4.0"
 import Gtk from "gi://Gtk?version=4.0"
+import GLib from "gi://GLib?version=2.0";
 import AstalHyprland from "gi://AstalHyprland?version=0.1"
 import { createBinding, createState } from "gnim"
+import { createPoll } from "ags/time"
 
 const WindowTitle = () => {
     const hyprland = AstalHyprland.get_default()
-    if (hyprland != null) {
-        return (
-            <label
-                label={createBinding(hyprland, "focusedClient").as((v) =>
-                    v.title.length > 50 ? v.title.slice(0, 47) + "..." : v.title,
-                )}
-            />
-        )
-    }
-    else {
-        console.log("Hyprland is not running. Defaulting to Niri.")
-        return ( <label label="Placeholder"/> )
-    }
+    return (
+        <label
+            label= {hyprland ? (createBinding(hyprland, "focusedClient").as((v) =>
+                v.title.length > 50 ? v.title.slice(0, 47) + "..." : v.title,
+            )) : "Placeholder"} // Bar doesn't start otherwise.
+        />
+    )
+}
+
+const Time = () => {
+    // TODO: Change so that it does not use createPoll.
+    const datetime = createPoll(GLib.DateTime.new_now_local(), 1000, () => GLib.DateTime.new_now_local())
+    return <label label={datetime((c) => c.format("%H:%M:%S"))}/>
 }
 
 const StartWidgets = () => {
@@ -29,7 +31,7 @@ const CenterWidgets = () => {
     return <WindowTitle />
 }
 const EndWidgets = () => {
-    return <label label={"End"} />
+    return <Time />
 }
 
 export default (monitor: Gdk.Monitor) => {
