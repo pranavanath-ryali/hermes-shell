@@ -7,13 +7,19 @@ import { createBinding, createState } from "gnim"
 
 const WindowTitle = () => {
     const hyprland = AstalHyprland.get_default()
-    return (
-        <label
-            label={createBinding(hyprland, "focusedClient").as((v) =>
-                v.title.length > 50 ? v.title.slice(0, 47) + "..." : v.title,
-            )}
-        />
-    )
+    if (hyprland != null) {
+        return (
+            <label
+                label={createBinding(hyprland, "focusedClient").as((v) =>
+                    v.title.length > 50 ? v.title.slice(0, 47) + "..." : v.title,
+                )}
+            />
+        )
+    }
+    else {
+        console.log("Hyprland is not running. Defaulting to Niri.")
+        return ( <label label="Placeholder"/> )
+    }
 }
 
 const StartWidgets = () => {
