@@ -6,6 +6,10 @@ My friend and I joked about how we are just gonna steal code from other repos. H
 
 # Roadmap
 - [ ] Bar
+    - [ ] Center
+        - [ ] Window Title
+    - [ ] Right
+        - [ ] Time
 - [ ] OSD
 - [ ] Notifications
 - [ ] Lockscreen
