@@ -6,10 +6,16 @@ The other contributor and I joked about how we are just gonna steal code from ot
 
 # Roadmap
 - [ ] Bar
+    - [ ] Left
+        - [ ] Workspaces
+        - [ ] Music Player
     - [ ] Center
         - [ ] Window Title
     - [ ] Right
+        - [ ] Wifi, Bluetooth, Audio
+        - [ ] System Stats (CPU, Memory, Battery)
         - [ ] Time
+        - [ ] Notifications Button
 - [ ] OSD
 - [ ] Notifications
 - [ ] Lockscreen
