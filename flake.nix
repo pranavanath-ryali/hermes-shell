@@ -22,14 +22,14 @@
       pname = "my-shell";
       entry = "app.ts";
 
-    astalPackages = with ags.packages.${system}; [
-      io
-      astal4 # or astal3 for gtk3
-      # notifd tray wireplumber
-      hyprland
-      wireplumber
-      battery
-    ];
+      astalPackages = with ags.packages.${system}; [
+        io
+        astal4 # or astal3 for gtk3
+        # notifd tray wireplumber
+        hyprland
+        wireplumber
+        battery
+      ];
 
       extraPackages = astalPackages ++ [
         pkgs.libadwaita
