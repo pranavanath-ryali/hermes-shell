@@ -4,16 +4,23 @@ import Gdk from "gi://Gdk?version=4.0"
 import Gtk from "gi://Gtk?version=4.0"
 import AstalHyprland from "gi://AstalHyprland?version=0.1"
 import { createBinding, createState } from "gnim"
+import { createPoll } from "ags/time"
 
 const WindowTitle = () => {
     const hyprland = AstalHyprland.get_default()
     return (
         <label
-            label={createBinding(hyprland, "focusedClient").as((v) =>
+            name="Title"
+            label= {hyprland ? (createBinding(hyprland, "focusedClient").as((v) =>
                 v.title.length > 50 ? v.title.slice(0, 47) + "..." : v.title,
-            )}
+            )) : "Placeholder"} // Bar doesn't start otherwise.
         />
     )
+}
+
+const Time = () => {
+    const datetime = createPoll("", 1000, () => Temporal.Now.plainTimeISO())
+    return <label label={datetime((c) => c.toString({smallestUnit:"second"}))}/>
 }
 
 const StartWidgets = () => {
@@ -23,7 +30,7 @@ const CenterWidgets = () => {
     return <WindowTitle />
 }
 const EndWidgets = () => {
-    return <label label={"End"} />
+    return <Time />
 }
 
 export default (monitor: Gdk.Monitor) => {
@@ -32,6 +39,7 @@ export default (monitor: Gdk.Monitor) => {
             visible
             gdkmonitor={monitor}
             title={"Bar"}
+            name="Bar"
             anchor={
                 Astal.WindowAnchor.TOP |
                 Astal.WindowAnchor.LEFT |
