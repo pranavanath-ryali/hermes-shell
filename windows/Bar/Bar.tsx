@@ -3,6 +3,7 @@ import { Astal } from "ags/gtk4"
 import Gdk from "gi://Gdk?version=4.0"
 import Gtk from "gi://Gtk?version=4.0"
 import AstalHyprland from "gi://AstalHyprland?version=0.1"
+import AstalBattery from "gi://AstalBattery"
 import { createBinding, createState } from "gnim"
 import { createPoll } from "ags/time"
 
@@ -20,7 +21,12 @@ const WindowTitle = () => {
 
 const Time = () => {
     const datetime = createPoll("", 1000, () => Temporal.Now.plainTimeISO())
-    return <label label={datetime((c) => c.toString({smallestUnit:"second"}))}/>
+    return <label name="Time" label={datetime((c) => c.toString({smallestUnit:"second"}))}/>
+}
+
+const Battery = () => {
+    const battery = AstalBattery.get_default()
+    return <label label={createBinding(battery, "percentage").as((b) => `${Math.floor(b * 100)}%`)} />
 }
 
 const StartWidgets = () => {
@@ -30,7 +36,12 @@ const CenterWidgets = () => {
     return <WindowTitle />
 }
 const EndWidgets = () => {
-    return <Time />
+    return (
+        <box name="EndBox">
+            <Battery />
+            <Time />
+        </box>
+    )
 }
 
 export default (monitor: Gdk.Monitor) => {
