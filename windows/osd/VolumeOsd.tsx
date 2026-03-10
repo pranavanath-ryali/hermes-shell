@@ -33,7 +33,7 @@ export default () => {
             exclusivity={Astal.Exclusivity.IGNORE}
             application={app}
         >
-            <label label={volume.as((v) => String(Math.ceil(v * 100)) + "%")} />
+            <label label={volume.as((v) => "Volume: " + String(Math.ceil(v * 100)) + "%")} />
         </window>
     )
 }
